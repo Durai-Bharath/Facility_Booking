@@ -42,11 +42,9 @@ app.use('/api/faculty', facultyRoutes);
 app.use('/api/admin', adminRoutes);
 
 
-// TEST
-app.get('/api/hello', (req, res) => {
-  res.json({
-    message: 'Hello World!'
-  });
+// Health Check
+app.get("/health", (req, res) => {
+  res.send("Facility Booking API Running");
 });
 
 

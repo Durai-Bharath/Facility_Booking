@@ -6,14 +6,6 @@ A full-stack web application designed to streamline the booking and management o
 
 
 
-## Repository
-
-
-
-GitHub Repository: https://github.com/Durai-Bharath/Facility_Booking
-
-
-
 ---
 
 
@@ -170,7 +162,7 @@ Create a `.env` file inside the `frontend` folder:
 
 ```env
 
-VITE_API_URL=http://localhost:5000
+VITE_BACKEND_URL=http://localhost:5000
 
 ```
 
@@ -190,19 +182,19 @@ Create a `.env` file inside the `backend` folder:
 
 ```env
 
-MONGODB_PROD_URI=
+MONGODB_PROD_URI=*********
 
-JWT_SECRET=
+JWT_SECRET=*********
 
-MAIL_USER=
+MAIL_USER=*********
 
-MAIL_PASS=
+MAIL_PASS=*********
 
-ADMIN_USERID=
+ADMIN_USERID=*********
 
-ADMIN_PASSWORD=
+ADMIN_PASSWORD=*********
 
-ADMIN_EMAIL=
+ADMIN_EMAIL=*********
 
 ```
 
@@ -358,199 +350,15 @@ http://localhost:5173
 
 ---
 
-
-
-# Default Admin Login
-
-
-
-The application automatically creates an admin account during the initial startup.
-
-
-
-| Field    | Value    |
-
-| -------- | -------- |
-
-| User ID  | admin    |
-
-| Password | admin123 |
-
-
-
-It is strongly recommended to change these credentials after the first login.
-
-
-
----
-
-
-
 # User Roles
 
-
-
-| Role                   | Description                               |
-
-| ---------------------- | ----------------------------------------- |
-
-| Admin                  | Full system access and management         |
-
-| Secretary              | Approve hall and auditorium requests      |
-
-| Faculty                | Facility booking and timetable management |
-
-| Student Representative | Facility booking and request management   |
-
-| Student                | View booking information                  |
-
-
-
----
-
-
-
-# Admin Setup Workflow
-
-
-
-After logging in as an administrator:
-
-
-
-1. Add Facilities
-
-2. Configure Faculty Course Enrollments
-
-3. Create Faculty Timetables
-
-4. Register Users
-
-5. Begin Facility Booking Operations
-
-
-
----
-
-
-
-# Deployment
-
-
-
-## Backend Deployment (Render)
-
-
-
-Configuration:
-
-
-
-```text
-
-Root Directory: backend
-
-Build Command: npm install
-
-Start Command: npm start
-
-```
-
-
-
-Required Environment Variables:
-
-
-
-```env
-
-MONGODB_PROD_URI
-
-JWT_SECRET
-
-MAIL_USER
-
-MAIL_PASS
-
-ADMIN_USERID
-
-ADMIN_PASSWORD
-
-ADMIN_EMAIL
-
-```
-
-
-
----
-
-
-
-## Frontend Deployment (Vercel)
-
-
-
-Build Settings:
-
-
-
-```text
-
-Framework: Vite
-
-Build Command: npm run build
-
-Output Directory: dist
-
-```
-
-
-
-Frontend Environment Variables:
-
-
-
-```env
-
-VITE_API_URL=<Render Backend URL>
-
-```
-
-
-
-Example:
-
-
-
-```env
-
-VITE_API_URL=https://facility-booking-api.onrender.com
-
-```
-
-
-
----
-
-
-
-# Project Structure
-
-
-
-```text
-
-Facility_Booking/
-
-├── backend/
-
-├── frontend/
-
-├── README.md
-
-```
-
-
+| Role                   | Description                                 |
+|------------------------|---------------------------------------------|
+| Admin                  | Full system access and management           |
+| Secretary              | Approve hall and auditorium requests        |
+| Faculty                | Facility booking and timetable management   |
+| Student Representative | Facility booking and request management     |
+| Student                | View booking information                    |
 
 ---
 
@@ -582,13 +390,12 @@ Verify:
 
 Verify:
 
+- `VITE_BACKEND_URL` is correctly configured.  
+  - If running locally, set it to: `http://localhost:8080/api`
 
+- Backend service is running.
 
-* `VITE_API_URL` is correctly configured.
-
-* Backend service is running.
-
-* CORS configuration allows frontend access.
+- CORS configuration allows frontend access.
 
 
 
@@ -612,13 +419,11 @@ Verify:
 
 # Contributing
 
-
-
-1. Create a feature branch.
+1. Create a feature branch (if needed).
 
 2. Commit changes with meaningful commit messages.
 
-3. Push the branch.
+3. Push the developed code to the `dev` branch. If a suitable branch does not exist, create a new branch first and push your changes there.
 
 4. Create a Pull Request.
 

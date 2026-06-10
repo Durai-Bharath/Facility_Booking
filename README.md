@@ -350,53 +350,15 @@ http://localhost:5173
 
 ---
 
-
-
-# Default Admin Login
-
-
-
-The application automatically creates an admin account during the initial startup.
-
-
-
-| Field    | Value    |
-
-| -------- | -------- |
-
-| User ID  | admin    |
-
-| Password | admin123 |
-
-
-
-It is strongly recommended to change these credentials after the first login.
-
-
-
----
-
-
-
 # User Roles
 
-
-
-| Role                   | Description                               |
-
-| ---------------------- | ----------------------------------------- |
-
-| Admin                  | Full system access and management         |
-
-| Secretary              | Approve hall and auditorium requests      |
-
-| Faculty                | Facility booking and timetable management |
-
-| Student Representative | Facility booking and request management   |
-
-| Student                | View booking information                  |
-
-
+| Role                   | Description                                 |
+|------------------------|---------------------------------------------|
+| Admin                  | Full system access and management           |
+| Secretary              | Approve hall and auditorium requests        |
+| Faculty                | Facility booking and timetable management   |
+| Student Representative | Facility booking and request management     |
+| Student                | View booking information                    |
 
 ---
 

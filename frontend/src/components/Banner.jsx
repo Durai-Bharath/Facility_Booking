@@ -1,13 +1,142 @@
-import logo from '../assets/logo.png';
-
 export default function Banner() {
+
+  const stored = localStorage.getItem('user');
+
+  const user = stored ? JSON.parse(stored) : null;
+
+
   return (
-    <div className="fixed top-0 left-0 w-full z-[1100] bg-beige-50 shadow-sm flex items-center px-6 py-3 gap-6 border-b border-beige-100">
-      <img src={logo} alt="Anna University Logo" className="h-14 w-auto flex-shrink-0" />
-      <div>
-        <h1 className="m-0 text-2xl font-bold text-primary tracking-wide leading-tight">Anna University</h1>
-        <p className="m-0 text-sm text-primary-light">Sardar Patel Road, Chennai - 600 025, Tamil Nadu</p>
+
+    <header
+
+      className="
+
+      fixed
+
+      top-0
+
+      left-0
+
+      right-0
+
+      h-[72px]
+
+      z-[700]
+
+      bg-white
+
+      shadow-md
+
+      border-b
+
+      border-slate-200
+
+      "
+
+    >
+
+      <div
+
+        className="
+
+        h-full
+
+        flex
+
+        items-center
+
+        justify-end
+
+        px-10
+
+        "
+
+      >
+
+
+        <div
+
+          className="
+
+          bg-slate-100
+
+          px-6
+
+          py-3
+
+          rounded-2xl
+
+          shadow-sm
+
+          text-center
+
+          "
+
+        >
+
+          <p
+
+            className="
+
+            text-gray-500
+
+            text-xs
+
+            uppercase
+
+            tracking-wide
+
+            "
+
+          >
+
+            Logged in as
+
+          </p>
+
+
+
+          <p
+
+            className="
+
+            text-slate-800
+
+            text-2xl
+
+            font-bold
+
+            "
+
+          >
+
+            {
+
+              user?.userId
+
+              ?
+
+              user.userId.charAt(0).toUpperCase()
+
+              +
+
+              user.userId.slice(1)
+
+              :
+
+              'Guest'
+
+            }
+
+          </p>
+
+        </div>
+
+
       </div>
-    </div>
+
+    </header>
+
   );
+
 }

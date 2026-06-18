@@ -63,13 +63,13 @@ function SingleRegister({ onDone }) {
           <label className="text-sm font-semibold text-gray-700">{f.label}</label>
           <input type={f.type} value={form[f.name]} onChange={e => setForm(p => ({ ...p, [f.name]: e.target.value }))}
             placeholder={f.placeholder} required
-            className="border border-beige-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/40" />
+            className="border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/40" />
         </div>
       ))}
       <div className="flex flex-col gap-1">
         <label className="text-sm font-semibold text-gray-700">Role</label>
         <select value={form.role} onChange={e => setForm(p => ({ ...p, role: e.target.value }))} required
-          className="border border-beige-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/40">
+          className="border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/40">
           {ROLES.map(r => <option key={r} value={r}>{ROLE_LABELS[r]}</option>)}
         </select>
       </div>
@@ -121,9 +121,9 @@ function BulkRegister({ onDone }) {
 
   return (
     <div className="bg-white rounded-2xl shadow p-6 max-w-3xl mx-auto flex flex-col gap-5">
-      <div className="bg-beige-50 rounded-xl p-4 text-sm text-gray-600">
+      <div className="bg-slate-50 rounded-xl p-4 text-sm text-gray-600">
         <p className="font-semibold text-gray-700 mb-1">CSV Format (one user per line):</p>
-        <code className="font-mono text-xs bg-white border border-beige-200 rounded px-2 py-1 block">
+        <code className="font-mono text-xs bg-white border border-slate-200 rounded px-2 py-1 block">
           userId,password,role,email<br />
           faculty4,pass123,faculty,faculty4@ceg.ac.in<br />
           student2,pass123,student,student2@ceg.ac.in
@@ -133,7 +133,7 @@ function BulkRegister({ onDone }) {
 
       <div className="flex gap-3 items-center flex-wrap">
         <button onClick={() => fileRef.current.click()}
-          className="bg-primary hover:bg-primary-dark text-white text-sm font-semibold px-4 py-2 rounded-lg transition-colors">
+          className="bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold px-4 py-2 rounded-lg transition-colors">
           Upload CSV File
         </button>
         <input ref={fileRef} type="file" accept=".csv,.txt" onChange={handleFileUpload} className="hidden" />
@@ -142,7 +142,7 @@ function BulkRegister({ onDone }) {
 
       <textarea value={csvText} onChange={e => { setCsvText(e.target.value); setPreview([]); setResult(null); }}
         rows={6} placeholder="userId,password,role,email&#10;faculty4,pass123,faculty,faculty4@ceg.ac.in"
-        className="border border-beige-200 rounded-xl px-3 py-2 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-primary/40 resize-none" />
+        className="border border-slate-200 rounded-xl px-3 py-2 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-blue-500/40 resize-none" />
 
       <button onClick={handleParse} disabled={!csvText.trim()}
         className="bg-gray-700 hover:bg-gray-800 disabled:opacity-50 text-white text-sm font-semibold px-5 py-2 rounded-lg transition-colors w-fit">
@@ -158,10 +158,10 @@ function BulkRegister({ onDone }) {
 
       {preview.length > 0 && (
         <>
-          <div className="overflow-x-auto rounded-xl border border-beige-200">
+          <div className="overflow-x-auto rounded-xl border border-slate-200">
             <table className="w-full text-sm border-collapse">
               <thead>
-                <tr className="bg-beige-100">
+                <tr className="bg-slate-100">
                   {['User ID', 'Password', 'Role', 'Email'].map(h => (
                     <th key={h} className="px-3 py-2 text-left font-semibold text-gray-700">{h}</th>
                   ))}
@@ -169,7 +169,7 @@ function BulkRegister({ onDone }) {
               </thead>
               <tbody>
                 {preview.map((u, i) => (
-                  <tr key={i} className="even:bg-beige-50">
+                  <tr key={i} className="even:bg-slate-50">
                     <td className="px-3 py-1.5 font-medium">{u.userId}</td>
                     <td className="px-3 py-1.5 text-gray-400 font-mono text-xs">{'•'.repeat(u.password.length)}</td>
                     <td className="px-3 py-1.5">
@@ -276,7 +276,7 @@ function ManageUsers({ refreshKey }) {
       <div className="flex flex-wrap gap-3 items-center justify-between">
         <div className="flex gap-2 items-center">
           <select value={filterRole} onChange={e => setFilterRole(e.target.value)}
-            className="border border-beige-200 rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/40">
+            className="border border-slate-200 rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/40">
             <option value="">All Roles</option>
             {ROLES.map(r => <option key={r} value={r}>{ROLE_LABELS[r]}</option>)}
           </select>
@@ -296,14 +296,14 @@ function ManageUsers({ refreshKey }) {
         ) : (
           <table className="w-full text-sm border-collapse">
             <thead>
-              <tr className="bg-beige-100">
-                <th className="px-3 py-2.5 border-b border-beige-200 w-10">
-                  <input type="checkbox" checked={allChecked} onChange={toggleAll} className="w-4 h-4 accent-primary" />
+              <tr className="bg-slate-100">
+                <th className="px-3 py-2.5 border-b border-slate-200 w-10">
+                  <input type="checkbox" checked={allChecked} onChange={toggleAll} className="w-4 h-4 accent-blue-600" />
                 </th>
-                <th className="px-3 py-2.5 text-left font-semibold text-gray-700 border-b border-beige-200">User ID</th>
-                <th className="px-3 py-2.5 text-left font-semibold text-gray-700 border-b border-beige-200">Role</th>
-                <th className="px-3 py-2.5 text-left font-semibold text-gray-700 border-b border-beige-200">Email</th>
-                <th className="px-3 py-2.5 text-left font-semibold text-gray-700 border-b border-beige-200">Action</th>
+                <th className="px-3 py-2.5 text-left font-semibold text-gray-700 border-b border-slate-200">User ID</th>
+                <th className="px-3 py-2.5 text-left font-semibold text-gray-700 border-b border-slate-200">Role</th>
+                <th className="px-3 py-2.5 text-left font-semibold text-gray-700 border-b border-slate-200">Email</th>
+                <th className="px-3 py-2.5 text-left font-semibold text-gray-700 border-b border-slate-200">Action</th>
               </tr>
             </thead>
             <tbody>
@@ -311,23 +311,23 @@ function ManageUsers({ refreshKey }) {
                 const isSelf = u.userId === currentUserId;
                 const isChecked = selected.has(u.userId);
                 return (
-                  <tr key={u.userId} className={`${isChecked ? 'bg-red-50' : 'even:bg-beige-50'} hover:bg-beige-100 transition-colors`}>
-                    <td className="px-3 py-2 border-b border-beige-100">
+                  <tr key={u.userId} className={`${isChecked ? 'bg-red-50' : 'even:bg-slate-50'} hover:bg-slate-100 transition-colors`}>
+                    <td className="px-3 py-2 border-b border-slate-100">
                       {!isSelf && (
                         <input type="checkbox" checked={isChecked} onChange={() => toggleSelect(u.userId)}
                           className="w-4 h-4 accent-red-500" />
                       )}
                     </td>
-                    <td className="px-3 py-2 border-b border-beige-100 font-medium">
+                    <td className="px-3 py-2 border-b border-slate-100 font-medium">
                       {u.userId} {isSelf && <span className="text-xs text-gray-400">(you)</span>}
                     </td>
-                    <td className="px-3 py-2 border-b border-beige-100">
+                    <td className="px-3 py-2 border-b border-slate-100">
                       <span className={`text-xs font-semibold px-2 py-0.5 rounded-full ${ROLE_COLORS[u.role]}`}>
                         {ROLE_LABELS[u.role]}
                       </span>
                     </td>
-                    <td className="px-3 py-2 border-b border-beige-100 text-gray-600">{u.email}</td>
-                    <td className="px-3 py-2 border-b border-beige-100">
+                    <td className="px-3 py-2 border-b border-slate-100 text-gray-600">{u.email}</td>
+                    <td className="px-3 py-2 border-b border-slate-100">
                       {!isSelf && (
                         <button onClick={() => handleDelete(u.userId)}
                           className="bg-red-500 hover:bg-red-600 text-white text-xs font-semibold px-3 py-1 rounded-lg transition-colors">
@@ -364,18 +364,18 @@ export default function Register() {
   const onDone = () => { setRefreshKey(k => k + 1); };
 
   return (
-    <div className="min-h-screen w-full bg-gradient-to-br from-beige-50 to-beige-100">
+    <div className="min-h-screen w-full bg-gradient-to-br from-slate-100 via-blue-50 to-indigo-100">
       <Banner />
       <Sidebar />
       <div className="pt-24 px-4 pb-10">
-        <h2 className="text-2xl font-bold text-primary mt-4 mb-6 text-center">User Management</h2>
+        <h2 className="text-2xl font-bold text-slate-800 mt-4 mb-6 text-center">User Management</h2>
 
         {/* Tabs */}
         <div className="flex gap-1 justify-center mb-6 bg-white rounded-xl shadow p-1 w-fit mx-auto">
           {TABS.map(t => (
             <button key={t.key} onClick={() => setTab(t.key)}
               className={`px-5 py-2 rounded-lg text-sm font-semibold transition-colors ${
-                tab === t.key ? 'bg-primary text-white' : 'text-gray-600 hover:bg-beige-50'
+                tab === t.key ? 'bg-blue-600 text-white' : 'text-gray-600 hover:bg-slate-50'
               }`}>
               {t.label}
             </button>

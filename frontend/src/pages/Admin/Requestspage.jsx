@@ -43,32 +43,49 @@ function RoleBadge({ role }) {
 }
 
 function RequestTable({ requests, onAccept, onReject, columns }) {
-  if (!requests.length) return <p className="text-gray-500 text-sm py-4 text-center">No pending requests.</p>;
+  if (!requests.length)
+    return (
+      <div className="flex flex-col items-center justify-center py-12 text-gray-400">
+        <span className="text-4xl mb-3">📭</span>
+        <p className="text-sm">No pending requests.</p>
+      </div>
+    );
+
   return (
-    <div className="overflow-x-auto rounded-xl shadow">
+    <div className="overflow-x-auto rounded-2xl border border-slate-200">
       <table className="w-full text-sm border-collapse">
         <thead>
-          <tr className="bg-beige-100">
+          <tr className="bg-slate-50 border-b border-slate-200">
             {columns.map(c => (
-              <th key={c.key} className="px-3 py-2.5 text-left font-semibold text-gray-700 border-b border-beige-200">{c.label}</th>
+              <th key={c.key} className="px-4 py-3 text-left font-semibold text-slate-600 text-xs uppercase tracking-wide">
+                {c.label}
+              </th>
             ))}
-            <th className="px-3 py-2.5 text-left font-semibold text-gray-700 border-b border-beige-200">Action</th>
+            <th className="px-4 py-3 text-left font-semibold text-slate-600 text-xs uppercase tracking-wide">
+              Action
+            </th>
           </tr>
         </thead>
         <tbody>
-          {requests.map(req => (
-            <tr key={req._id} className="bg-yellow-50 even:bg-white hover:bg-beige-50 transition-colors">
+          {requests.map((req, i) => (
+            <tr key={req._id} className={`border-b border-slate-100 hover:bg-blue-50 transition-colors ${i % 2 === 0 ? 'bg-white' : 'bg-slate-50/50'}`}>
               {columns.map(c => (
-                <td key={c.key} className="px-3 py-2 border-b border-beige-100">
+                <td key={c.key} className="px-4 py-3 text-slate-700">
                   {c.render ? c.render(req) : (req[c.key] ?? '')}
                 </td>
               ))}
-              <td className="px-3 py-2 border-b border-beige-100">
+              <td className="px-4 py-3">
                 <div className="flex gap-2">
-                  <button onClick={() => onAccept(req._id)}
-                    className="bg-green-600 hover:bg-green-700 text-white text-xs font-semibold w-8 h-8 rounded-lg transition-colors" title="Accept">✔</button>
-                  <button onClick={() => onReject(req._id)}
-                    className="bg-red-600 hover:bg-red-700 text-white text-xs font-semibold w-8 h-8 rounded-lg transition-colors" title="Reject">✖</button>
+                  <button
+                    onClick={() => onAccept(req._id)}
+                    className="bg-green-500 hover:bg-green-600 text-white text-xs font-semibold w-8 h-8 rounded-lg transition-colors"
+                    title="Accept"
+                  >✔</button>
+                  <button
+                    onClick={() => onReject(req._id)}
+                    className="bg-red-500 hover:bg-red-600 text-white text-xs font-semibold w-8 h-8 rounded-lg transition-colors"
+                    title="Reject"
+                  >✖</button>
                 </div>
               </td>
             </tr>
@@ -81,8 +98,10 @@ function RequestTable({ requests, onAccept, onReject, columns }) {
 
 const pdfCell = (req) =>
   req.pdf?.data ? (
-    <button onClick={() => openBase64PDF(req.pdf.data)}
-      className="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold px-3 py-1 rounded-lg transition-colors">
+    <button
+      onClick={() => openBase64PDF(req.pdf.data)}
+      className="bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold px-3 py-1.5 rounded-lg transition-colors"
+    >
       View PDF
     </button>
   ) : <span className="text-gray-400 text-xs">No file</span>;
@@ -101,7 +120,7 @@ const AUDI_COLS = [
 export default function Requestspage() {
   const [hallRequests, setHallRequests] = useState([]);
   const [audiRequests, setAudiRequests] = useState([]);
-  const [userRoles, setUserRoles]       = useState({});  // userId → role
+  const [userRoles, setUserRoles]       = useState({});
   const [hallFilter, setHallFilter]     = useState('all');
   const [loading, setLoading]           = useState(true);
   const [error,   setError]             = useState('');
@@ -141,7 +160,6 @@ export default function Requestspage() {
     ? hallRequests
     : hallRequests.filter(r => userRoles[r.userId] === hallFilter);
 
-  // Build HALL_COLS dynamically so role cell can use userRoles
   const HALL_COLS = [
     { key: 'hallName',  label: 'Hall' },
     { key: 'userId',    label: 'User' },
@@ -158,33 +176,44 @@ export default function Requestspage() {
   ];
 
   return (
-    <div className="min-h-screen w-full bg-gradient-to-br from-beige-50 to-beige-100">
+    <div className="min-h-screen bg-gradient-to-br from-slate-100 via-blue-50 to-indigo-100">
       <Banner />
       <Sidebar />
-      <div className="pt-24 px-4 pb-10">
-        <h2 className="text-2xl font-bold text-primary mt-4 mb-6 text-center">Pending Requests</h2>
-        {error && <p className="text-red-600 text-sm mb-4 text-center">{error}</p>}
+
+      <div className="pt-28 px-8 md:px-14 ml-16 pb-12">
+        <h1 className="text-3xl font-bold text-slate-800 mb-8">Pending Requests</h1>
+
+        {error && (
+          <div className="bg-red-50 border border-red-200 text-red-700 text-sm px-4 py-3 rounded-xl mb-6">
+            {error}
+          </div>
+        )}
 
         {loading ? (
-          <p className="text-center text-gray-500">Loading...</p>
+          <div className="flex items-center justify-center py-20 text-slate-400 text-sm">
+            Loading...
+          </div>
         ) : (
           <>
             {/* ── Hall Requests ── */}
-            <div className="mb-10">
-              <div className="flex flex-wrap items-center gap-3 mb-4">
-                <h3 className="text-lg font-bold text-primary">Pending Hall Requests</h3>
-                <div className="flex flex-wrap gap-2">
+            <div className="bg-white rounded-3xl shadow-xl p-8 mb-8">
+              <div className="flex flex-wrap items-center gap-3 mb-6">
+                <h2 className="text-xl font-bold text-slate-800">Pending Hall Requests</h2>
+                <div className="flex flex-wrap gap-2 ml-1">
                   {HALL_FILTERS.map(f => {
                     const count = f.key === 'all'
                       ? hallRequests.length
                       : hallRequests.filter(r => userRoles[r.userId] === f.key).length;
                     return (
-                      <button key={f.key} onClick={() => setHallFilter(f.key)}
-                        className={`px-3 py-1 rounded-full text-xs font-semibold border transition-colors ${
+                      <button
+                        key={f.key}
+                        onClick={() => setHallFilter(f.key)}
+                        className={`px-4 py-1.5 rounded-full text-xs font-semibold border transition-colors ${
                           hallFilter === f.key
-                            ? 'bg-primary text-white border-primary'
-                            : 'bg-white text-gray-600 border-beige-200 hover:bg-beige-50'
-                        }`}>
+                            ? 'bg-blue-600 text-white border-blue-600'
+                            : 'bg-white text-slate-500 border-slate-200 hover:bg-slate-50'
+                        }`}
+                      >
                         {f.label} <span className="opacity-70">({count})</span>
                       </button>
                     );
@@ -200,8 +229,8 @@ export default function Requestspage() {
             </div>
 
             {/* ── Auditorium Requests ── */}
-            <div>
-              <h3 className="text-lg font-bold text-primary mb-4">Pending Auditorium Requests</h3>
+            <div className="bg-white rounded-3xl shadow-xl p-8">
+              <h2 className="text-xl font-bold text-slate-800 mb-6">Pending Auditorium Requests</h2>
               <RequestTable
                 requests={audiRequests}
                 onAccept={id => handleAudiStatus(id, 'accepted')}

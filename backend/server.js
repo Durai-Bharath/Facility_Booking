@@ -291,6 +291,34 @@ app.post('/api/timetable', auth, adminOnly, async (req, res) => {
     res.status(500).json({ error: 'Error creating timetable', details: err.message });
   }
 });
+app.get('/api/timetable', auth, adminOnly, async (req, res) => {
+  const { userId } = req.query;
+  if (!userId) return res.status(400).json({ error: 'userId required' });
+  try {
+    const timetable = await Timetable.findOne({ userId }).populate('periods');
+    if (!timetable) return res.json({ periods: [] });
+
+    const periods = timetable.periods
+      .map(p => ({
+        periodNo: p.periodNo,
+        day: p.day,
+        periodId: p.periodId,
+        free: p.free !== false,
+        roomNo: p.roomNo || '',
+        courseCode: p.courseCode || '',
+        staffName: p.staffName || '',
+        lab: p.lab || '',
+        projector: p.projector || '',
+        startTime: p.startTime || '',
+        endTime: p.endTime || '',
+      }))
+      .sort((a, b) => a.day !== b.day ? a.day - b.day : a.periodNo - b.periodNo);
+
+    res.json({ periods });
+  } catch (err) {
+    res.status(500).json({ error: 'Error fetching timetable', details: err.message });
+  }
+});
 
 // ─── DB + Start ───────────────────────────────────────────────────────────────
 

@@ -68,7 +68,11 @@ export default function BookingPage({ user }) {
     }).catch(() => {});
   }, []);
 
-  useEffect(() => { fetchPeriods(); }, [storedUser?.userId, todayDay]);
+  useEffect(() => { 
+    fetchPeriods(); 
+    const interval = setInterval(fetchPeriods, 30000);
+    return () => clearInterval(interval);
+  }, [storedUser?.userId, todayDay]);
 
   const handleFree = async (period) => {
     setLoading(true);

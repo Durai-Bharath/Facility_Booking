@@ -18,6 +18,11 @@ function getDayAndPeriod(idx) {
   return { day: Math.floor(idx / 8) + 1, periodNo: (idx % 8) + 1 };
 }
 
+function isAssignedPeriod(period) {
+  if (!period) return false;
+  return period.free === false || Boolean(period.courseCode || period.staffName || period.roomNo || period.lab || period.projector);
+}
+
 // ── Special Working Days tab ──────────────────────────────────────────────────
 
 function SpecialDaysTab() {
@@ -164,6 +169,7 @@ function TimetableTab() {
   const [editLab, setEditLab] = useState('');
   const [dragCourseIdx, setDragCourseIdx] = useState(null);
   const [submitted, setSubmitted] = useState(false);
+  const [loadingTimetable, setLoadingTimetable] = useState(false);
 
   useEffect(() => {
     api.get('/enrollment/all')
@@ -171,13 +177,50 @@ function TimetableTab() {
       .catch(() => setEnrollments([]));
   }, []);
 
+  const fetchTimetable = async (selectedUserId) => {
+    if (!selectedUserId) return;
+    setLoadingTimetable(true);
+    setSubmitted(false);
+    try {
+      const [coursesRes, timetableRes] = await Promise.all([
+        api.get(`/enrollment/courses?userId=${selectedUserId}`),
+        api.get('/timetable', { params: { userId: selectedUserId } }),
+      ]);
+
+      setCourses(Array.isArray(coursesRes.data) ? coursesRes.data : []);
+      const serverPeriods = Array.isArray(timetableRes.data.periods) ? timetableRes.data.periods : [];
+      if (serverPeriods.length === PERIODS) {
+        setPeriods(serverPeriods.map(p => {
+          const assigned = isAssignedPeriod(p);
+          if (!assigned) return null;
+          return {
+            periodNo: p.periodNo,
+            day: p.day,
+            periodId: p.periodId,
+            free: p.free !== false,
+            roomNo: p.roomNo || '',
+            courseCode: p.courseCode || '',
+            staffName: p.staffName || '',
+            lab: p.lab || '',
+            projector: p.projector || '',
+            startTime: p.startTime || PERIOD_TIMES[p.periodNo - 1]?.startTime || '',
+            endTime: p.endTime || PERIOD_TIMES[p.periodNo - 1]?.endTime || '',
+          };
+        }));
+      } else {
+        setPeriods(Array(PERIODS).fill(null));
+      }
+    } catch (err) {
+      setCourses([]);
+      setPeriods(Array(PERIODS).fill(null));
+    } finally {
+      setLoadingTimetable(false);
+    }
+  };
+
   useEffect(() => {
     if (!userId) return;
-    api.get(`/enrollment/courses?userId=${userId}`)
-      .then(res => setCourses(Array.isArray(res.data) ? res.data : []))
-      .catch(() => setCourses([]));
-    setPeriods(Array(PERIODS).fill(null));
-    setSubmitted(false);
+    fetchTimetable(userId);
   }, [userId]);
 
   const assignCourse = (periodIdx, course) => {
@@ -214,6 +257,7 @@ function TimetableTab() {
     try {
       await api.post('/timetable', { userId, periods: filled });
       setSubmitted(true);
+      await fetchTimetable(userId);
       alert('Timetable submitted!');
     } catch (err) { alert(err.response?.data?.error || 'Failed to submit timetable'); }
   };
@@ -248,6 +292,12 @@ function TimetableTab() {
             )}
           </div>
 
+          {userId && (
+            <p className="text-xs text-gray-400 mb-4">
+              These defaults are used automatically when you drop a room-based or lab-based course into a slot. You can still edit each slot later.
+            </p>
+          )}
+
           {userId && courses.length > 0 && (
             <div className="mb-4">
               <h4 className="text-sm font-bold text-gray-700 mb-2">Courses — drag to assign</h4>
@@ -264,6 +314,13 @@ function TimetableTab() {
                 ))}
               </div>
             </div>
+          )}
+          {userId && !loadingTimetable && courses.length === 0 && (
+            <p className="text-sm text-gray-500 mb-4">No enrolled courses found for this faculty.</p>
+          )}
+
+          {loadingTimetable && (
+            <p className="text-sm text-gray-500 mb-4">Loading timetable and enrollment data...</p>
           )}
 
           {userId && (

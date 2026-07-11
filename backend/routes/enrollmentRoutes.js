@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const Enrollment = require('../models/Enrollment');
+const Timetable = require('../models/Timetable');
+const Period = require('../models/Period');
 const { auth, adminOnly } = require('../middleware/auth');
 const { regenerateWeektablesForUser } = require('../utils');
 
@@ -148,11 +150,32 @@ router.patch('/:facultyId/courses/:courseCode', auth, adminOnly, async (req, res
 // DELETE all enrollment for a faculty
 router.delete('/:facultyId', auth, adminOnly, async (req, res) => {
   try {
-    const result = await Enrollment.deleteOne({ facultyId: req.params.facultyId });
-    if (result.deletedCount === 0) return res.status(404).json({ error: 'Enrollment not found' });
+    const facultyId = req.params.facultyId;
+    const enrollment = await Enrollment.findOne({ facultyId });
+    if (!enrollment) return res.status(404).json({ error: 'Enrollment not found' });
+
+    const memberIds = new Set();
+    for (const course of enrollment.courses) {
+      course.studentReps.forEach(id => memberIds.add(id));
+      course.students.forEach(id => memberIds.add(id));
+    }
+
+    const timetable = await Timetable.findOne({ userId: facultyId });
+    if (timetable) {
+      await Period.deleteMany({ _id: { $in: timetable.periods } });
+      await Timetable.deleteOne({ userId: facultyId });
+    }
+
+    await Enrollment.deleteOne({ facultyId });
+
+    for (const memberId of memberIds) {
+      await regenerateWeektablesForUser(memberId);
+    }
+    await regenerateWeektablesForUser(facultyId);
+
     res.json({ message: 'Enrollment deleted' });
-  } catch {
-    res.status(500).json({ error: 'Error deleting enrollment' });
+  } catch (err) {
+    res.status(500).json({ error: 'Error deleting enrollment', details: err.message });
   }
 });
 

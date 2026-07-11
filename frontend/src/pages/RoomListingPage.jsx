@@ -67,6 +67,29 @@ export default function RoomListingPage({ user }) {
     }
   };
 
+  if (!period?.periodId) {
+    return (
+      <div className="min-h-screen w-full bg-gradient-to-br from-beige-50 to-beige-100">
+        <Banner />
+        <Sidebar />
+        <div className="pt-24 px-4 flex flex-col items-center pb-10">
+          <div className="max-w-xl w-full bg-white rounded-3xl shadow-xl border border-beige-200 p-8 text-center">
+            <h2 className="text-2xl font-bold text-primary mb-4">No period selected</h2>
+            <p className="text-sm text-gray-600 mb-6">
+              The room booking page needs a selected class period. Faculty should use Facilitywise Booking or Periodwise Booking to choose a date and slot first.
+            </p>
+            <button
+              onClick={() => navigate('/facilitywiseBooking')}
+              className="bg-primary text-white font-semibold px-5 py-2.5 rounded-xl hover:bg-primary-dark transition-colors"
+            >
+              Go to Facilitywise Booking
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen w-full bg-gradient-to-br from-beige-50 to-beige-100">
       <Banner />

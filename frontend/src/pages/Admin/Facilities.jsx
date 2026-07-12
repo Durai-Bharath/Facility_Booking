@@ -57,17 +57,17 @@ export default function Facilities() {
     <button
       onClick={() => setMode(mode === m ? '' : m)}
       className={`px-4 py-2 rounded-lg text-sm font-semibold transition-colors border ${
-        mode === m ? 'bg-primary text-white border-primary' : 'bg-white text-primary border-beige-200 hover:bg-beige-50'
+        mode === m ? 'bg-blue-600 text-white border-blue-600' : 'bg-white text-slate-800 border-slate-200 hover:bg-slate-50'
       }`}
     >{label}</button>
   );
 
   return (
-    <div className="min-h-screen w-full bg-gradient-to-br from-beige-50 to-beige-100">
+    <div className="min-h-screen w-full bg-gradient-to-br from-slate-100 via-blue-50 to-indigo-100">
       <Banner />
       <Sidebar />
       <div className="pt-24 px-4 pb-10">
-        <h2 className="text-2xl font-bold text-primary mt-4 mb-6 text-center">Facility Management</h2>
+        <h2 className="text-2xl font-bold text-slate-800 mt-4 mb-6 text-center">Facility Management</h2>
 
         <div className="flex gap-3 justify-center mb-6 flex-wrap">
           {modeBtn('add', '+ Add Facility')}
@@ -85,35 +85,35 @@ export default function Facilities() {
           <div className="bg-white rounded-xl shadow overflow-x-auto">
             <table className="w-full text-sm border-collapse">
               <thead>
-                <tr className="bg-beige-100">
-                  <th className="px-4 py-2.5 text-left font-semibold text-gray-700 border-b border-beige-200">#</th>
-                  <th className="px-4 py-2.5 text-left font-semibold text-gray-700 border-b border-beige-200">Name</th>
-                  <th className="px-4 py-2.5 text-left font-semibold text-gray-700 border-b border-beige-200">Type</th>
-                  <th className="px-4 py-2.5 text-left font-semibold text-gray-700 border-b border-beige-200">Bookable</th>
-                  <th className="px-4 py-2.5 text-left font-semibold text-gray-700 border-b border-beige-200">Actions</th>
+                <tr className="bg-slate-100">
+                  <th className="px-4 py-2.5 text-left font-semibold text-gray-700 border-b border-slate-200">#</th>
+                  <th className="px-4 py-2.5 text-left font-semibold text-gray-700 border-b border-slate-200">Name</th>
+                  <th className="px-4 py-2.5 text-left font-semibold text-gray-700 border-b border-slate-200">Type</th>
+                  <th className="px-4 py-2.5 text-left font-semibold text-gray-700 border-b border-slate-200">Bookable</th>
+                  <th className="px-4 py-2.5 text-left font-semibold text-gray-700 border-b border-slate-200">Actions</th>
                 </tr>
               </thead>
               <tbody>
                 {mode === 'add' && (
                   <tr className="bg-yellow-50">
-                    <td className="px-4 py-2 border-b border-beige-100 font-semibold text-primary">New</td>
-                    <td className="px-4 py-2 border-b border-beige-100">
+                    <td className="px-4 py-2 border-b border-slate-100 font-semibold text-slate-800">New</td>
+                    <td className="px-4 py-2 border-b border-slate-100">
                       <input value={newFacility.name} onChange={e => setNewFacility(f => ({ ...f, name: e.target.value }))}
                         placeholder="Facility name"
-                        className="border border-beige-200 rounded px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-primary/40 w-36" />
+                        className="border border-slate-200 rounded px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/40 w-36" />
                     </td>
-                    <td className="px-4 py-2 border-b border-beige-100">
+                    <td className="px-4 py-2 border-b border-slate-100">
                       <select value={newFacility.type} onChange={e => setNewFacility(f => ({ ...f, type: e.target.value }))}
-                        className="border border-beige-200 rounded px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-primary/40">
+                        className="border border-slate-200 rounded px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/40">
                         {FACILITY_TYPES.map(t => <option key={t} value={t}>{t}</option>)}
                       </select>
                     </td>
-                    <td className="px-4 py-2 border-b border-beige-100">
+                    <td className="px-4 py-2 border-b border-slate-100">
                       <input type="checkbox" checked={newFacility.bookable}
                         onChange={e => setNewFacility(f => ({ ...f, bookable: e.target.checked }))}
-                        className="w-4 h-4 accent-primary" />
+                        className="w-4 h-4 accent-blue-600" />
                     </td>
-                    <td className="px-4 py-2 border-b border-beige-100">
+                    <td className="px-4 py-2 border-b border-slate-100">
                       <button onClick={addFacility}
                         className="bg-orange-500 hover:bg-orange-600 text-white text-xs font-semibold px-3 py-1.5 rounded-lg transition-colors">
                         Add
@@ -122,22 +122,22 @@ export default function Facilities() {
                   </tr>
                 )}
                 {mode !== 'add' && facilities.map((f, idx) => (
-                  <tr key={f._id} className="even:bg-beige-50 hover:bg-beige-100 transition-colors">
-                    <td className="px-4 py-2 border-b border-beige-100 text-gray-500">{idx + 1}</td>
-                    <td className="px-4 py-2 border-b border-beige-100 font-medium">{f.name}</td>
-                    <td className="px-4 py-2 border-b border-beige-100 capitalize">{f.type}</td>
-                    <td className="px-4 py-2 border-b border-beige-100">
+                  <tr key={f._id} className="even:bg-slate-50 hover:bg-slate-100 transition-colors">
+                    <td className="px-4 py-2 border-b border-slate-100 text-gray-500">{idx + 1}</td>
+                    <td className="px-4 py-2 border-b border-slate-100 font-medium">{f.name}</td>
+                    <td className="px-4 py-2 border-b border-slate-100 capitalize">{f.type}</td>
+                    <td className="px-4 py-2 border-b border-slate-100">
                       {mode === 'edit' && editIdx === idx ? (
                         <input type="checkbox" checked={editBookable}
                           onChange={e => setEditBookable(e.target.checked)}
-                          className="w-4 h-4 accent-primary" />
+                          className="w-4 h-4 accent-blue-600" />
                       ) : (
                         <span className={f.bookable ? 'text-green-700 font-semibold' : 'text-red-600 font-semibold'}>
                           {f.bookable ? 'Yes' : 'No'}
                         </span>
                       )}
                     </td>
-                    <td className="px-4 py-2 border-b border-beige-100">
+                    <td className="px-4 py-2 border-b border-slate-100">
                       {mode === 'edit' ? (
                         editIdx === idx ? (
                           <div className="flex gap-2">
@@ -166,20 +166,20 @@ export default function Facilities() {
           <div className="bg-white rounded-xl shadow overflow-x-auto">
             <table className="w-full text-sm border-collapse">
               <thead>
-                <tr className="bg-beige-100">
-                  <th className="px-4 py-2.5 text-left font-semibold text-gray-700 border-b border-beige-200">#</th>
-                  <th className="px-4 py-2.5 text-left font-semibold text-gray-700 border-b border-beige-200">Name</th>
-                  <th className="px-4 py-2.5 text-left font-semibold text-gray-700 border-b border-beige-200">Type</th>
-                  <th className="px-4 py-2.5 text-left font-semibold text-gray-700 border-b border-beige-200">Bookable</th>
+                <tr className="bg-slate-100">
+                  <th className="px-4 py-2.5 text-left font-semibold text-gray-700 border-b border-slate-200">#</th>
+                  <th className="px-4 py-2.5 text-left font-semibold text-gray-700 border-b border-slate-200">Name</th>
+                  <th className="px-4 py-2.5 text-left font-semibold text-gray-700 border-b border-slate-200">Type</th>
+                  <th className="px-4 py-2.5 text-left font-semibold text-gray-700 border-b border-slate-200">Bookable</th>
                 </tr>
               </thead>
               <tbody>
                 {facilities.map((f, idx) => (
-                  <tr key={f._id} className="even:bg-beige-50">
-                    <td className="px-4 py-2 border-b border-beige-100 text-gray-500">{idx + 1}</td>
-                    <td className="px-4 py-2 border-b border-beige-100 font-medium">{f.name}</td>
-                    <td className="px-4 py-2 border-b border-beige-100 capitalize">{f.type}</td>
-                    <td className="px-4 py-2 border-b border-beige-100">
+                  <tr key={f._id} className="even:bg-slate-50">
+                    <td className="px-4 py-2 border-b border-slate-100 text-gray-500">{idx + 1}</td>
+                    <td className="px-4 py-2 border-b border-slate-100 font-medium">{f.name}</td>
+                    <td className="px-4 py-2 border-b border-slate-100 capitalize">{f.type}</td>
+                    <td className="px-4 py-2 border-b border-slate-100">
                       <span className={f.bookable ? 'text-green-700 font-semibold' : 'text-red-600 font-semibold'}>
                         {f.bookable ? 'Yes' : 'No'}
                       </span>

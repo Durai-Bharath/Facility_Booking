@@ -74,7 +74,7 @@ function SpecialDaysTab() {
       {msg && <p className={`text-sm px-3 py-2 rounded-lg ${isErr ? 'text-red-600 bg-red-50' : 'text-green-700 bg-green-50'}`}>{msg}</p>}
 
       <div className="bg-white rounded-2xl shadow p-6 flex flex-col gap-4">
-        <h3 className="font-bold text-primary text-lg">Add Special Working Saturday</h3>
+        <h3 className="font-bold text-slate-800 text-lg">Add Special Working Saturday</h3>
 
         <form onSubmit={handleAdd} className="flex flex-col gap-4">
           <div className="flex flex-col gap-1">
@@ -82,19 +82,19 @@ function SpecialDaysTab() {
             <div className="flex flex-wrap gap-2 mb-2">
               {saturdays.map(s => (
                 <button key={s} type="button" onClick={() => setDate(s)}
-                  className={`px-2 py-1 text-xs rounded-lg border transition-colors ${date === s ? 'bg-primary text-white border-primary' : 'bg-white border-beige-200 hover:bg-beige-50'}`}>
+                  className={`px-2 py-1 text-xs rounded-lg border transition-colors ${date === s ? 'bg-blue-600 text-white border-blue-600' : 'bg-white border-slate-200 hover:bg-slate-50'}`}>
                   {s}
                 </button>
               ))}
             </div>
             <input type="date" value={date} onChange={e => setDate(e.target.value)}
-              className="border border-beige-200 rounded-lg px-3 py-2 text-sm w-48 focus:outline-none focus:ring-2 focus:ring-primary/40" />
+              className="border border-slate-200 rounded-lg px-3 py-2 text-sm w-48 focus:outline-none focus:ring-2 focus:ring-blue-500/40" />
           </div>
 
           <div className="flex flex-col gap-1">
             <label className="text-sm font-semibold text-gray-700">Follows whose timetable?</label>
             <select value={followsDay} onChange={e => setFollowsDay(e.target.value)}
-              className="border border-beige-200 rounded-lg px-3 py-2 text-sm w-52 focus:outline-none focus:ring-2 focus:ring-primary/40">
+              className="border border-slate-200 rounded-lg px-3 py-2 text-sm w-52 focus:outline-none focus:ring-2 focus:ring-blue-500/40">
               <option value="">No timetable (open — all facilities free)</option>
               {[1,2,3,4,5].map(n => <option key={n} value={n}>{DAY_NAMES[n]}'s timetable</option>)}
             </select>
@@ -109,37 +109,37 @@ function SpecialDaysTab() {
             <label className="text-sm font-semibold text-gray-700">Note (optional)</label>
             <input type="text" value={label} onChange={e => setLabel(e.target.value)}
               placeholder="e.g. Compensatory for Diwali holiday"
-              className="border border-beige-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/40" />
+              className="border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/40" />
           </div>
 
-          <button type="submit" className="bg-primary hover:bg-primary-dark text-white font-semibold py-2.5 px-6 rounded-xl transition-colors w-fit">
+          <button type="submit" className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 px-6 rounded-xl transition-colors w-fit">
             Add Special Day
           </button>
         </form>
       </div>
 
       <div className="bg-white rounded-2xl shadow p-6">
-        <h3 className="font-bold text-primary text-lg mb-4">Scheduled Special Days</h3>
+        <h3 className="font-bold text-slate-800 text-lg mb-4">Scheduled Special Days</h3>
         {days.length === 0 ? (
           <p className="text-gray-400 text-sm">No special working days configured.</p>
         ) : (
           <table className="w-full text-sm border-collapse">
             <thead>
-              <tr className="bg-beige-100">
+              <tr className="bg-slate-100">
                 {['Date', 'Follows', 'Note', 'Action'].map(h => (
-                  <th key={h} className="px-3 py-2 text-left font-semibold text-gray-700 border-b border-beige-200">{h}</th>
+                  <th key={h} className="px-3 py-2 text-left font-semibold text-gray-700 border-b border-slate-200">{h}</th>
                 ))}
               </tr>
             </thead>
             <tbody>
               {days.map(d => (
-                <tr key={d.date} className="even:bg-beige-50 hover:bg-beige-100">
-                  <td className="px-3 py-2 border-b border-beige-100 font-medium">{d.date}</td>
-                  <td className="px-3 py-2 border-b border-beige-100">
+                <tr key={d.date} className="even:bg-slate-50 hover:bg-slate-100">
+                  <td className="px-3 py-2 border-b border-slate-100 font-medium">{d.date}</td>
+                  <td className="px-3 py-2 border-b border-slate-100">
                     {d.followsDay ? <span className="text-indigo-700 font-semibold">{DAY_NAMES[d.followsDay]}'s schedule</span> : <span className="text-gray-400">Open (no timetable)</span>}
                   </td>
-                  <td className="px-3 py-2 border-b border-beige-100 text-gray-500">{d.label || '—'}</td>
-                  <td className="px-3 py-2 border-b border-beige-100">
+                  <td className="px-3 py-2 border-b border-slate-100 text-gray-500">{d.label || '—'}</td>
+                  <td className="px-3 py-2 border-b border-slate-100">
                     <button onClick={() => handleRemove(d.date)}
                       className="bg-red-500 hover:bg-red-600 text-white text-xs font-semibold px-3 py-1 rounded-lg transition-colors">
                       Remove
@@ -264,14 +264,14 @@ function TimetableTab() {
 
   return (
     <div className="pt-4 px-4 pb-10">
-      <h2 className="text-2xl font-bold text-primary mb-6 text-center">Build Timetable</h2>
+      <h2 className="text-2xl font-bold text-slate-800 mb-6 text-center">Build Timetable</h2>
 
         <div className="bg-white rounded-2xl shadow p-6 mb-6 max-w-5xl mx-auto">
           <div className="flex flex-wrap gap-4 items-end mb-4">
             <div className="flex flex-col gap-1">
               <label className="text-sm font-semibold text-gray-700">Select User</label>
               <select value={userId} onChange={e => setUserId(e.target.value)}
-                className="border border-beige-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/40 min-w-[160px]">
+                className="border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/40 min-w-[160px]">
                 <option value="">-- Select User --</option>
                 {enrollments.map(e => <option key={e.facultyId} value={e.facultyId}>{e.facultyId}</option>)}
               </select>
@@ -281,12 +281,12 @@ function TimetableTab() {
                 <div className="flex flex-col gap-1">
                   <label className="text-sm font-semibold text-gray-700">Default Room</label>
                   <input value={defaultRoom} onChange={e => setDefaultRoom(e.target.value)} placeholder="e.g. CS-101"
-                    className="border border-beige-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/40 w-32" />
+                    className="border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/40 w-32" />
                 </div>
                 <div className="flex flex-col gap-1">
                   <label className="text-sm font-semibold text-gray-700">Default Lab</label>
                   <input value={defaultLab} onChange={e => setDefaultLab(e.target.value)} placeholder="e.g. CS Lab 1"
-                    className="border border-beige-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/40 w-32" />
+                    className="border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/40 w-32" />
                 </div>
               </>
             )}
@@ -329,7 +329,7 @@ function TimetableTab() {
                 <div className="grid grid-cols-8 gap-1 min-w-[700px]">
                   {/* Header: day labels */}
                   {DAYS.map((day, di) => (
-                    <div key={day} className={`col-span-1 ${di === 0 ? 'col-start-1' : ''} font-bold text-xs text-center text-primary py-1`}>
+                    <div key={day} className={`col-span-1 ${di === 0 ? 'col-start-1' : ''} font-bold text-xs text-center text-slate-800 py-1`}>
                       {/* placeholder for column header logic below */}
                     </div>
                   ))}
@@ -346,7 +346,7 @@ function TimetableTab() {
                         }}
                         onDragOver={e => e.preventDefault()}
                         className={`min-h-[90px] rounded-lg border p-1.5 text-xs transition-colors ${
-                          p ? 'bg-green-50 border-green-300' : 'bg-white border-gray-200 hover:bg-beige-50'
+                          p ? 'bg-green-50 border-green-300' : 'bg-white border-gray-200 hover:bg-slate-50'
                         }`}
                       >
                         <div className="font-bold text-gray-600">{DAYS[day-1]} P{periodNo}</div>
@@ -358,12 +358,12 @@ function TimetableTab() {
                                 className="border rounded px-1 py-0.5 text-xs w-full mb-1" />
                               <input value={editLab} onChange={e => setEditLab(e.target.value)} placeholder="Lab"
                                 className="border rounded px-1 py-0.5 text-xs w-full mb-1" />
-                              <button onClick={() => saveEdit(idx)} className="bg-primary text-white text-[10px] px-2 py-0.5 rounded mr-1">Save</button>
+                              <button onClick={() => saveEdit(idx)} className="bg-blue-600 text-white text-[10px] px-2 py-0.5 rounded mr-1">Save</button>
                               <button onClick={() => setEditIdx(null)} className="bg-gray-400 text-white text-[10px] px-2 py-0.5 rounded">✕</button>
                             </div>
                           ) : (
                             <div>
-                              <div className="font-semibold text-primary truncate">{p.courseCode}</div>
+                              <div className="font-semibold text-slate-800 truncate">{p.courseCode}</div>
                               <div className="text-gray-500 truncate">{p.staffName}</div>
                               {p.roomNo && <div className="text-gray-400">R: {p.roomNo}</div>}
                               {p.lab && <div className="text-gray-400">L: {p.lab}</div>}
@@ -469,13 +469,13 @@ function HolidaysTab() {
       )}
 
       <div className="bg-white rounded-2xl shadow p-6 flex flex-col gap-4">
-        <h3 className="font-bold text-primary text-lg">Mark Holiday / Off Day</h3>
+        <h3 className="font-bold text-slate-800 text-lg">Mark Holiday / Off Day</h3>
 
         {/* Mode toggle */}
         <div className="flex gap-2">
           {[['single', 'Single Day'], ['range', 'Date Range']].map(([m, lbl]) => (
             <button key={m} type="button" onClick={() => setMode(m)}
-              className={`px-4 py-1.5 rounded-lg text-sm font-semibold border transition-colors ${mode === m ? 'bg-primary text-white border-primary' : 'bg-white border-beige-200 text-gray-600 hover:bg-beige-50'}`}>
+              className={`px-4 py-1.5 rounded-lg text-sm font-semibold border transition-colors ${mode === m ? 'bg-blue-600 text-white border-blue-600' : 'bg-white border-slate-200 text-gray-600 hover:bg-slate-50'}`}>
               {lbl}
             </button>
           ))}
@@ -486,19 +486,19 @@ function HolidaysTab() {
             <div className="flex flex-col gap-1">
               <label className="text-sm font-semibold text-gray-700">Date</label>
               <input type="date" value={singleDate} onChange={e => setSingleDate(e.target.value)}
-                className="border border-beige-200 rounded-lg px-3 py-2 text-sm w-48 focus:outline-none focus:ring-2 focus:ring-primary/40" />
+                className="border border-slate-200 rounded-lg px-3 py-2 text-sm w-48 focus:outline-none focus:ring-2 focus:ring-blue-500/40" />
             </div>
           ) : (
             <div className="flex gap-4 flex-wrap">
               <div className="flex flex-col gap-1">
                 <label className="text-sm font-semibold text-gray-700">From</label>
                 <input type="date" value={rangeFrom} onChange={e => setRangeFrom(e.target.value)}
-                  className="border border-beige-200 rounded-lg px-3 py-2 text-sm w-44 focus:outline-none focus:ring-2 focus:ring-primary/40" />
+                  className="border border-slate-200 rounded-lg px-3 py-2 text-sm w-44 focus:outline-none focus:ring-2 focus:ring-blue-500/40" />
               </div>
               <div className="flex flex-col gap-1">
                 <label className="text-sm font-semibold text-gray-700">To</label>
                 <input type="date" value={rangeTo} onChange={e => setRangeTo(e.target.value)}
-                  className="border border-beige-200 rounded-lg px-3 py-2 text-sm w-44 focus:outline-none focus:ring-2 focus:ring-primary/40" />
+                  className="border border-slate-200 rounded-lg px-3 py-2 text-sm w-44 focus:outline-none focus:ring-2 focus:ring-blue-500/40" />
               </div>
             </div>
           )}
@@ -507,7 +507,7 @@ function HolidaysTab() {
             <label className="text-sm font-semibold text-gray-700">Label (optional)</label>
             <input type="text" value={label} onChange={e => setLabel(e.target.value)}
               placeholder="e.g. Diwali, Summer vacation, Public holiday"
-              className="border border-beige-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/40" />
+              className="border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/40" />
           </div>
 
           <button type="submit"
@@ -519,7 +519,7 @@ function HolidaysTab() {
 
       <div className="bg-white rounded-2xl shadow p-6">
         <div className="flex items-center justify-between mb-4">
-          <h3 className="font-bold text-primary text-lg">Scheduled Holidays ({holidays.length})</h3>
+          <h3 className="font-bold text-slate-800 text-lg">Scheduled Holidays ({holidays.length})</h3>
           {holidays.length > 1 && (
             <button onClick={handleRemoveAll}
               className="text-xs text-red-500 hover:text-red-700 font-semibold transition-colors">
@@ -530,16 +530,16 @@ function HolidaysTab() {
         {holidays.length === 0 ? (
           <p className="text-gray-400 text-sm">No holidays configured.</p>
         ) : (
-          <div className="flex flex-col gap-0 rounded-xl overflow-hidden border border-beige-200">
+          <div className="flex flex-col gap-0 rounded-xl overflow-hidden border border-slate-200">
             {holidays.map((h, i) => (
               <div key={h.date}
-                className={`flex items-center justify-between px-4 py-2.5 ${i % 2 === 0 ? 'bg-white' : 'bg-beige-50'}`}>
+                className={`flex items-center justify-between px-4 py-2.5 ${i % 2 === 0 ? 'bg-white' : 'bg-slate-50'}`}>
                 <div>
                   <span className="font-semibold text-sm text-gray-800">{h.date}</span>
                   <span className="ml-2 text-xs text-gray-400">
                     {new Date(h.date + 'T12:00:00').toLocaleDateString('en-IN', { weekday: 'short' })}
                   </span>
-                  {h.label && <span className="ml-2 text-xs text-primary-light">— {h.label}</span>}
+                  {h.label && <span className="ml-2 text-xs text-blue-600">— {h.label}</span>}
                 </div>
                 <button onClick={() => handleRemove(h.date)}
                   className="text-red-500 hover:text-red-700 text-xs font-semibold transition-colors">
@@ -599,9 +599,9 @@ function WeektableGenTab() {
       )}
 
       <div className="bg-white rounded-2xl shadow p-6 flex flex-col gap-5">
-        <h3 className="font-bold text-primary text-lg">Generate Weektables</h3>
+        <h3 className="font-bold text-slate-800 text-lg">Generate Weektables</h3>
 
-        <div className="bg-beige-50 border border-beige-200 rounded-xl px-4 py-3 text-sm">
+        <div className="bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm">
           <span className="font-semibold text-gray-700">Current coverage: </span>
           {coverageDate
             ? <span className="text-indigo-700 font-semibold">up to week of {coverageDate}</span>
@@ -617,7 +617,7 @@ function WeektableGenTab() {
               value={tillDate}
               min={new Date().toISOString().slice(0, 10)}
               onChange={e => setTillDate(e.target.value)}
-              className="border border-beige-200 rounded-lg px-3 py-2 text-sm w-52 focus:outline-none focus:ring-2 focus:ring-primary/40"
+              className="border border-slate-200 rounded-lg px-3 py-2 text-sm w-52 focus:outline-none focus:ring-2 focus:ring-blue-500/40"
             />
             <p className="text-xs text-gray-400">
               Weektables will be created for all users from the current week through the week containing this date.
@@ -628,7 +628,7 @@ function WeektableGenTab() {
           <button
             type="submit"
             disabled={loading}
-            className="bg-primary hover:bg-primary-dark disabled:opacity-50 text-white font-semibold py-2.5 px-6 rounded-xl transition-colors w-fit"
+            className="bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white font-semibold py-2.5 px-6 rounded-xl transition-colors w-fit"
           >
             {loading ? 'Generating…' : 'Generate Weektables'}
           </button>
@@ -652,7 +652,7 @@ function WeektableGenTab() {
 export default function TimeTable() {
   const [tab, setTab] = useState('timetable');
   return (
-    <div className="min-h-screen w-full bg-gradient-to-br from-beige-50 to-beige-100">
+    <div className="min-h-screen w-full bg-gradient-to-br from-slate-100 via-blue-50 to-indigo-100">
       <Banner />
       <Sidebar />
       <div className="pt-24 px-4 pb-10">
@@ -664,7 +664,7 @@ export default function TimeTable() {
             ['holidays', 'Holidays / Off Days'],
           ].map(([key, label]) => (
             <button key={key} onClick={() => setTab(key)}
-              className={`px-4 py-2 rounded-lg text-sm font-semibold transition-colors ${tab === key ? 'bg-primary text-white' : 'text-gray-600 hover:bg-beige-50'}`}>
+              className={`px-4 py-2 rounded-lg text-sm font-semibold transition-colors ${tab === key ? 'bg-blue-600 text-white' : 'text-gray-600 hover:bg-slate-50'}`}>
               {label}
             </button>
           ))}

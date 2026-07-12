@@ -44,10 +44,10 @@ function MemberInput({ label, members, onAdd, onRemove, color }) {
           onChange={e => setInput(e.target.value)}
           onKeyDown={e => { if (e.key === 'Enter') { e.preventDefault(); add(); } }}
           placeholder="userId + Enter"
-          className="border border-beige-200 rounded px-2 py-0.5 text-xs w-32 focus:outline-none focus:ring-1 focus:ring-primary/40"
+          className="border border-slate-200 rounded px-2 py-0.5 text-xs w-32 focus:outline-none focus:ring-1 focus:ring-blue-500/40"
         />
         <button type="button" onClick={add}
-          className="bg-primary hover:bg-primary-dark text-white text-xs px-2 py-0.5 rounded transition-colors">
+          className="bg-blue-600 hover:bg-blue-700 text-white text-xs px-2 py-0.5 rounded transition-colors">
           Add
         </button>
       </div>
@@ -128,7 +128,7 @@ function EnrollmentForm({ facultyUsers, onSaved }) {
 
   return (
     <div className="bg-white rounded-2xl shadow p-6 flex flex-col gap-5">
-      <h3 className="font-bold text-primary text-lg">Set Up Faculty Enrollment</h3>
+      <h3 className="font-bold text-slate-800 text-lg">Set Up Faculty Enrollment</h3>
 
       {msg && (
         <p className={`text-sm px-3 py-2 rounded-lg ${isErr ? 'text-red-600 bg-red-50' : 'text-green-700 bg-green-50'}`}>{msg}</p>
@@ -138,7 +138,7 @@ function EnrollmentForm({ facultyUsers, onSaved }) {
         <div className="flex flex-col gap-1">
           <label className="text-sm font-semibold text-gray-700">Faculty (Login ID)</label>
           <select value={facultyId} onChange={e => setFacultyId(e.target.value)}
-            className="border border-beige-200 rounded-lg px-3 py-2 text-sm w-52 focus:outline-none focus:ring-2 focus:ring-primary/40">
+            className="border border-slate-200 rounded-lg px-3 py-2 text-sm w-52 focus:outline-none focus:ring-2 focus:ring-blue-500/40">
             <option value="">-- Select Faculty --</option>
             {facultyUsers.map(u => <option key={u.userId} value={u.userId}>{u.userId}</option>)}
           </select>
@@ -150,7 +150,7 @@ function EnrollmentForm({ facultyUsers, onSaved }) {
               value={staffName}
               onChange={e => setStaffName(e.target.value)}
               placeholder="e.g. Dr. Smith"
-              className="border border-beige-200 rounded-lg px-3 py-2 text-sm w-52 focus:outline-none focus:ring-2 focus:ring-primary/40"
+              className="border border-slate-200 rounded-lg px-3 py-2 text-sm w-52 focus:outline-none focus:ring-2 focus:ring-blue-500/40"
             />
           </div>
         )}
@@ -163,24 +163,24 @@ function EnrollmentForm({ facultyUsers, onSaved }) {
               <p className="text-sm text-gray-400">No courses yet — click "Add Course" to begin.</p>
             )}
             {courses.map((course, idx) => (
-              <div key={idx} className="border border-beige-200 rounded-xl p-4 bg-beige-50 flex flex-col gap-3">
+              <div key={idx} className="border border-slate-200 rounded-xl p-4 bg-slate-50 flex flex-col gap-3">
                 {/* Course metadata row */}
                 <div className="flex flex-wrap gap-3 items-end">
                   <div className="flex flex-col gap-1">
                     <label className="text-xs font-semibold text-gray-600">Course Code</label>
                     <input value={course.courseCode} onChange={e => updateCourse(idx, 'courseCode', e.target.value)}
                       placeholder="CS101"
-                      className="border border-beige-200 rounded px-2 py-1.5 text-sm w-28 focus:outline-none focus:ring-1 focus:ring-primary/40" />
+                      className="border border-slate-200 rounded px-2 py-1.5 text-sm w-28 focus:outline-none focus:ring-1 focus:ring-blue-500/40" />
                   </div>
                   <div className="flex flex-col gap-1 flex-1 min-w-[160px]">
                     <label className="text-xs font-semibold text-gray-600">Course Name</label>
                     <input value={course.courseName} onChange={e => updateCourse(idx, 'courseName', e.target.value)}
                       placeholder="Data Structures"
-                      className="border border-beige-200 rounded px-2 py-1.5 text-sm w-full focus:outline-none focus:ring-1 focus:ring-primary/40" />
+                      className="border border-slate-200 rounded px-2 py-1.5 text-sm w-full focus:outline-none focus:ring-1 focus:ring-blue-500/40" />
                   </div>
                   <div className="flex items-center gap-2 pb-2">
                     <input type="checkbox" checked={course.lab} onChange={e => updateCourse(idx, 'lab', e.target.checked)}
-                      className="w-4 h-4 accent-primary" />
+                      className="w-4 h-4 accent-blue-600" />
                     <label className="text-sm font-semibold text-gray-600">Lab</label>
                   </div>
                   <button type="button" onClick={() => removeCourse(idx)}
@@ -210,7 +210,7 @@ function EnrollmentForm({ facultyUsers, onSaved }) {
 
           <div className="flex gap-3 flex-wrap">
             <button type="button" onClick={addCourse}
-              className="border border-beige-200 bg-beige-100 hover:bg-beige-200 text-gray-700 text-sm font-semibold px-4 py-2 rounded-lg transition-colors">
+              className="border border-slate-200 bg-slate-100 hover:bg-slate-200 text-gray-700 text-sm font-semibold px-4 py-2 rounded-lg transition-colors">
               + Add Course
             </button>
             <button type="button" onClick={handleSubmit} disabled={saving}
@@ -233,10 +233,10 @@ function AllEnrollments({ enrollments, onDelete }) {
         <p className="text-center text-gray-500">No enrollments yet.</p>
       )}
       {enrollments.map(doc => (
-        <div key={doc.facultyId} className="bg-white rounded-xl shadow p-5 border-l-4 border-primary">
+        <div key={doc.facultyId} className="bg-white rounded-xl shadow p-5 border-l-4 border-blue-600">
           <div className="flex items-center justify-between mb-4">
             <div>
-              <span className="font-bold text-primary text-base">{doc.staffName}</span>
+              <span className="font-bold text-slate-800 text-base">{doc.staffName}</span>
               <span className="ml-2 text-xs text-gray-400">({doc.facultyId}) · {doc.courses.length} course(s)</span>
             </div>
             <button onClick={() => onDelete(doc.facultyId)}
@@ -247,9 +247,9 @@ function AllEnrollments({ enrollments, onDelete }) {
 
           <div className="flex flex-col gap-3">
             {doc.courses.map((c, i) => (
-              <div key={i} className="border border-beige-100 rounded-lg p-3 bg-beige-50">
+              <div key={i} className="border border-slate-100 rounded-lg p-3 bg-slate-50">
                 <div className="flex flex-wrap items-center gap-2 mb-2">
-                  <span className="font-bold text-sm text-primary-light">{c.courseCode}</span>
+                  <span className="font-bold text-sm text-blue-600">{c.courseCode}</span>
                   <span className="text-sm text-gray-700">{c.courseName}</span>
                   <span className={`text-xs font-semibold px-2 py-0.5 rounded-full ${c.lab ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-500'}`}>
                     {c.lab ? 'Lab' : 'Room'}
@@ -328,11 +328,11 @@ export default function EnrollmentPage() {
   };
 
   return (
-    <div className="min-h-screen w-full bg-gradient-to-br from-beige-50 to-beige-100">
+    <div className="min-h-screen w-full bg-gradient-to-br from-slate-100 via-blue-50 to-indigo-100">
       <Banner />
       <Sidebar />
       <div className="pt-24 px-4 pb-10 max-w-4xl mx-auto flex flex-col gap-8">
-        <h2 className="text-2xl font-bold text-primary mt-4 text-center">Enrollment Management</h2>
+        <h2 className="text-2xl font-bold text-slate-800 mt-4 text-center">Enrollment Management</h2>
 
         {msg && (
           <p className={`text-sm px-3 py-2 rounded-lg ${isErr ? 'text-red-600 bg-red-50' : 'text-green-700 bg-green-50'}`}>{msg}</p>
@@ -341,7 +341,7 @@ export default function EnrollmentPage() {
         <EnrollmentForm facultyUsers={facultyUsers} onSaved={fetchEnrollments} />
 
         <div>
-          <h3 className="text-lg font-bold text-primary mb-4">
+          <h3 className="text-lg font-bold text-slate-800 mb-4">
             All Enrollments <span className="text-sm font-normal text-gray-400">({allEnrollments.length})</span>
           </h3>
           <AllEnrollments enrollments={allEnrollments} onDelete={handleDelete} />

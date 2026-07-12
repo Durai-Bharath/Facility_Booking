@@ -106,11 +106,11 @@ export default function Dashboard() {
   const dateStr = selectedDate ? formatDateLocal(selectedDate) : '';
 
   return (
-    <div className="min-h-screen w-full bg-gradient-to-br from-beige-50 to-beige-100">
+    <div className="min-h-screen w-full bg-gradient-to-br from-slate-100 via-blue-50 to-indigo-100">
       <Banner />
       <Sidebar />
       <div className="pt-24 px-4 pb-10">
-        <h2 className="text-2xl font-bold text-primary mt-4 mb-6 text-center">Admin Dashboard — Facility Usage</h2>
+        <h2 className="text-2xl font-bold text-slate-800 mt-4 mb-6 text-center">Admin Dashboard — Facility Usage</h2>
 
         <div className="flex flex-wrap gap-8 mb-6 items-start px-2">
           <div>
@@ -127,7 +127,7 @@ export default function Dashboard() {
             <select
               value={selectedType}
               onChange={e => handleTypeChange(e.target.value)}
-              className="border border-beige-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/40 w-48"
+              className="border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/40 w-48"
             >
               <option value="">All</option>
               <option value="kp">KP Room</option>
